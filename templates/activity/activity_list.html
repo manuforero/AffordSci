@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}	
+	<ul>
+		{% for acti in activity_list %}
+		<li>
+			<a href="{% url 'activity:activity_detail' acti.id %}" >
+				{{acti.name}}
+			</a>
+			{% if acti.image %}
+				<img src="{{ acti.image.url }}" alt="">
+			{% endif %}
+			<p> has an average rating of {{ acti.average_rating }} </p>
+		</li>
+		{% endfor %}
+	</ul>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="post">
+	<h1>{{ activity.name }}</h1>
+	<p>
+	{{ activity.short_desc }}
+	This activity lasts 
+	{{ activity.duration }}
+	</p>
+
+	<h2>The problem</h2>
+	<p>
+		{{ activity.instructions |linebreaks }}
+		{{ activity.url_source |linebreaks }}
+	</p>
+	{% if activity.image %}
+		<img src="{{ activity.image.url }}" alt= "">
+	{% endif %}
+		
+	{% if review_list %}
+		<p> This exercise has an average rating of {{ activity.average_rating }} </p>
+		<h3>Reviews</h3>
+		{% for rev in review_list %}
+			<li>
+				<a href="{% url 'activity:review_detail' rev.id %}" >
+					{{rev.title}}
+				</a>
+			</li>
+		{% endfor %}
+	{% else %}
+		<p>This exercise has no reviews </p>
+	{% endif %}
+	<a href="{% url 'activity:new_review' activity.id %}">New Review </a>
+</div>
+{% endblock content %}
